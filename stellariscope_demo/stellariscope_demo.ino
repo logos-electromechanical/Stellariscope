@@ -25,11 +25,11 @@ struct dyad {
 };
 
 // other definitions
-#define BRIGHT (0x22)
+#define BRIGHT (0x555)
 #define DELAY  (100)
 
 // global variables
-uint8_t hcnt = 1;
+uint8_t hcnt = 2;
 uint8_t vcnt = 1;
 
 // function prototypes
@@ -88,7 +88,7 @@ void loop() {
  }
  for (i = 0; i < 8; i++) {
    for (j = 0; j < DELAY; j++) {
-     writeCol(i, BRIGHT, BRIGHT, BRIGHT);
+     //writeCol(i, BRIGHT, BRIGHT, BRIGHT);
    }
  }
  for (i = 0; i < (8 * vcnt); i++) {
@@ -108,7 +108,7 @@ void loop() {
  }
  for (i = 0; i < (8 * vcnt); i++) {
    for (j = 0; j < DELAY; j++) {
-     writeRow(i, BRIGHT, BRIGHT, BRIGHT);
+     //writeRow(i, BRIGHT, BRIGHT, BRIGHT);
    }
  }
 }
@@ -144,7 +144,7 @@ void writeCol (int column, int red, int grn, int blu) {
             SPI.transfer(mine.c);
           }
         } else {
-          pushBytes(off, 36, i);
+          pushBytes(off, 36, j);
         }
       }
     }
@@ -209,10 +209,20 @@ void writeRow (int row, int red, int grn, int blu) {
 uint16_t strobeLatch (void) {
   static uint8_t h = 1;
   static uint8_t v = 1;
+  uint8_t lastv, lasth;
   
+  //lastv = digitalRead(vcnt_in);
+  //lasth = digitalRead(hcnt_in);
   digitalWrite(latch, HIGH);
-  //delayMicroseconds(1);
   digitalWrite(latch, LOW);
+  /*if (digitalRead(vcnt_in) == lastv) {
+    v++;
+  } else {
+  }
+  if (digitalRead(hcnt_in) == lasth) {
+    h++;
+  } else {
+  }*/
   
   return ((hcnt << 8) | vcnt);
 
