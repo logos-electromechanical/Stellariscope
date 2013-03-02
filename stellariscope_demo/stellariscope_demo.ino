@@ -14,11 +14,19 @@ const int hcnt_in   = P2_5;  // horizontal count return
 const int vcnt_in   = P2_4;  // vertical count return
 
 // column sets
-const uint8_t null[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+const uint8_t off[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+// typedef
+
+struct dyad {
+  uint8_t a;
+  uint8_t b;
+  uint8_t c;
+};
 
 // other definitions
 #define BRIGHT (0x22)
-#define DELAY  (500)
+#define DELAY  (100)
 
 // global variables
 uint8_t hcnt = 1;
@@ -28,8 +36,10 @@ uint8_t vcnt = 1;
 void writeCol (int column, int red, int grn, int blu);
 void writeRow (int row, int red, int grn, int blu);
 void selectCol (int col);
-void pushBytes (uint8_t *bytes, uint8_t len, int rowBlock);
+void pushBytes (const uint8_t *bytes, uint8_t len, int rowBlock);
+void selectRow (int rowBlock);
 uint16_t strobeLatch (void);
+struct dyad getDyad (uint16_t a, uint16_t b);
 
 // program
 
@@ -54,26 +64,28 @@ void setup() {
   digitalWrite (clkadd2, LOW);
   // initialize SPI:
   SPI.begin(); 
+  // initialize serial
+  Serial.begin(9600);
 }
 
 void loop() {
  int i, j; 
- for (i = 0; i < (8 * hcnt); i++) {
+ for (i = 0; i < 8; i++) {
    for (j = 0; j < DELAY; j++) {
      writeCol(i, BRIGHT, 0, 0);
    }
  }
- for (i = 0; i < (8 * hcnt); i++) {
+ for (i = 0; i < 8; i++) {
    for (j = 0; j < DELAY; j++) {
      writeCol(i, 0, BRIGHT, 0);
    }
  }
- for (i = 0; i < (8 * hcnt); i++) {
+ for (i = 0; i < 8; i++) {
    for (j = 0; j < DELAY; j++) {
      writeCol(i, 0, 0, BRIGHT);
    }
  }
- for (i = 0; i < (8 * hcnt); i++) {
+ for (i = 0; i < 8; i++) {
    for (j = 0; j < DELAY; j++) {
      writeCol(i, BRIGHT, BRIGHT, BRIGHT);
    }
@@ -102,14 +114,87 @@ void loop() {
 
 
 void writeCol (int column, int red, int grn, int blu) {
-  int i, j;
-  for (i = 0; i < vcnt; i++) {
-    
-  }
+  int i, j, k, l;
+  struct dyad mine;
+  //Serial.print("Column: ");
+  //Serial.println(column);
+  //for (i = 0; i < vcnt; i++) {
+    selectRow(0);
+    for (j = 0; j < 8; j++) {
+      selectCol(j);
+      if (j == column) {
+        mine = getDyad(blu, blu);
+        for (k = 0; k < 4; k++) {
+          SPI.transfer(mine.a);
+          SPI.transfer(mine.b);
+          SPI.transfer(mine.c);
+        }
+        mine = getDyad(grn, grn);
+        for (k = 0; k < 4; k++) {
+          SPI.transfer(mine.a);
+          SPI.transfer(mine.b);
+          SPI.transfer(mine.c);
+        }
+        mine = getDyad(red, red);
+        for (k = 0; k < 4; k++) {
+          SPI.transfer(mine.a);
+          SPI.transfer(mine.b);
+          SPI.transfer(mine.c);
+        }
+      } else {
+        pushBytes(off, 36, i);
+      }
+      strobeLatch();
+    }
+  //}
+  
   return;
 }
 
 void writeRow (int row, int red, int grn, int blu) {
+  int i, j;
+  struct dyad mine;
+  selectRow(0);
+  for (i = 0; i < 8; i++) {
+      selectCol(i);
+      for (j = 0; j < 4; j++) {
+        if ((row-(2*j)) == 1) {
+          mine = getDyad(0, blu);
+        } else if ((row-(2*j)) == 0) {
+          mine = getDyad(blu, 0);
+        } else {
+          mine = getDyad(0, 0);
+        }
+        SPI.transfer(mine.a);
+        SPI.transfer(mine.b);
+        SPI.transfer(mine.c);
+      }
+      for (j = 3; j >= 0 ; j--) {
+        if ((row-(2*j)) == 0) {
+          mine = getDyad(0, grn);
+        } else if ((row-(2*j)) == 1) {
+          mine = getDyad(grn, 0);
+        } else {
+          mine = getDyad(0, 0);
+        }
+        SPI.transfer(mine.a);
+        SPI.transfer(mine.b);
+        SPI.transfer(mine.c);
+      }
+      for (j = 0; j < 4; j++) {
+        if ((row-(2*j)) == 1) {
+          mine = getDyad(0, red);
+        } else if ((row-(2*j)) == 0) {
+          mine = getDyad(red, 0);
+        } else {
+          mine = getDyad(0, 0);
+        }
+        SPI.transfer(mine.a);
+        SPI.transfer(mine.b);
+        SPI.transfer(mine.c);
+      }
+      strobeLatch();
+  }
   return;
 }
 
@@ -117,13 +202,17 @@ uint16_t strobeLatch (void) {
   static uint8_t h = 1;
   static uint8_t v = 1;
   
+  digitalWrite(latch, HIGH);
+  delayMicroseconds(1);
+  digitalWrite(latch, LOW);
+  
   return ((hcnt << 8) | vcnt);
 
 }
 
 void selectCol (int col) {
   int i;
- i = col % 8;
+ i = col;
  if (i & 1) {
       digitalWrite(col0, HIGH);
     } else {
@@ -141,10 +230,41 @@ void selectCol (int col) {
     }
   
 }
-void pushBytes (uint8_t *bytes, uint8_t len, int rowBlock) {
+
+void pushBytes (const uint8_t *bytes, uint8_t len, int rowBlock) {
  int i;
+ selectRow(rowBlock);
  for (i = 0; i < len; i++) {
   SPI.transfer(bytes[i]); 
  }
  
+}
+
+
+void selectRow (int rowBlock) {
+   //if (rowBlock & 1) {
+     // digitalWrite(clkadd0, HIGH);
+    //} else {
+      digitalWrite(clkadd0, LOW);
+    //}
+    //if (rowBlock & 2) {
+    //  digitalWrite(clkadd1, HIGH);
+    //} else {
+      digitalWrite(clkadd1, LOW);
+    //}
+    //if (rowBlock & 4) {
+    //  digitalWrite(clkadd2, HIGH);
+    //} else {
+      digitalWrite(clkadd2, LOW);
+    //}
+}
+
+struct dyad getDyad (uint16_t a, uint16_t b) {
+  struct dyad val;
+  
+  val.a = (uint8_t)(a >> 4);
+  val.b = (uint8_t)(((a << 4) & 0xf0) | ((b >> 8) & 0x0f));
+  val.c = (uint8_t)(b & 0xff);
+  
+  return val;
 }
