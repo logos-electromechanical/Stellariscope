@@ -10126,15 +10126,13 @@ A3 Larger Frame</description>
 <net name="N$29" class="0">
 <segment>
 <pinref part="U2" gate="A" pin="E3"/>
-<wire x1="134.62" y1="137.16" x2="137.16" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="137.16" x2="139.7" y2="137.16" width="0.1524" layer="91"/>
 <pinref part="R4" gate="G$1" pin="1"/>
-<pinref part="LAUNCHPAD" gate="G$1" pin="P2.3"/>
-<wire x1="137.16" y1="137.16" x2="147.32" y2="137.16" width="0.1524" layer="91"/>
-<wire x1="91.44" y1="152.4" x2="88.9" y2="152.4" width="0.1524" layer="91"/>
-<wire x1="88.9" y1="152.4" x2="88.9" y2="142.24" width="0.1524" layer="91"/>
-<wire x1="88.9" y1="142.24" x2="137.16" y2="142.24" width="0.1524" layer="91"/>
-<wire x1="137.16" y1="142.24" x2="137.16" y2="137.16" width="0.1524" layer="91"/>
-<junction x="137.16" y="137.16"/>
+<wire x1="139.7" y1="137.16" x2="147.32" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="167.64" x2="139.7" y2="137.16" width="0.1524" layer="91"/>
+<junction x="139.7" y="137.16"/>
+<pinref part="LAUNCHPAD" gate="G$1" pin="P1.5"/>
+<wire x1="139.7" y1="167.64" x2="127" y2="167.64" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SIN" class="0">
@@ -10241,10 +10239,10 @@ A3 Larger Frame</description>
 <net name="N$36" class="0">
 <segment>
 <pinref part="U1" gate="A" pin="A0"/>
-<wire x1="134.62" y1="175.26" x2="281.94" y2="175.26" width="0.1524" layer="91"/>
-<wire x1="134.62" y1="175.26" x2="134.62" y2="200.66" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="175.26" x2="281.94" y2="175.26" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="175.26" x2="137.16" y2="200.66" width="0.1524" layer="91"/>
 <pinref part="HOUT" gate="-7" pin="S"/>
-<wire x1="134.62" y1="200.66" x2="142.24" y2="200.66" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="200.66" x2="142.24" y2="200.66" width="0.1524" layer="91"/>
 <wire x1="142.24" y1="200.66" x2="142.24" y2="213.36" width="0.1524" layer="91"/>
 <pinref part="HIN" gate="-7" pin="S"/>
 <wire x1="142.24" y1="200.66" x2="144.78" y2="200.66" width="0.1524" layer="91"/>
@@ -10258,10 +10256,12 @@ A3 Larger Frame</description>
 <wire x1="147.32" y1="213.36" x2="147.32" y2="200.66" width="0.1524" layer="91"/>
 <junction x="144.78" y="200.66"/>
 <junction x="147.32" y="200.66"/>
-<pinref part="LAUNCHPAD" gate="G$1" pin="P1.5"/>
-<wire x1="127" y1="167.64" x2="134.62" y2="167.64" width="0.1524" layer="91"/>
-<wire x1="134.62" y1="167.64" x2="134.62" y2="175.26" width="0.1524" layer="91"/>
-<junction x="134.62" y="175.26"/>
+<wire x1="137.16" y1="142.24" x2="137.16" y2="175.26" width="0.1524" layer="91"/>
+<junction x="137.16" y="175.26"/>
+<pinref part="LAUNCHPAD" gate="G$1" pin="P2.3"/>
+<wire x1="91.44" y1="152.4" x2="88.9" y2="152.4" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="152.4" x2="88.9" y2="142.24" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="142.24" x2="137.16" y2="142.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="XLAT" class="0">

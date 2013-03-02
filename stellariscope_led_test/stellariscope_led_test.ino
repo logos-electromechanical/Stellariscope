@@ -34,6 +34,7 @@ void setup() {
   digitalWrite (clkadd2, LOW);
   // initialize SPI:
   SPI.begin(); 
+  SPI.setBitOrder(LSBFIRST);
 }
 
 void loop() {
