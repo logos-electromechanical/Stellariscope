@@ -2,7 +2,7 @@
 
 // pin definitions
 const int latch     = P1_0;  // latch signal 
-const int col0      = P1_2;  // column select bit 0
+const int col0      = P2_3;  // column select bit 0
 const int col1      = P1_3;  // column select bit 1
 const int col2      = P1_4;  // column select bit 2
 const int clkadd0   = P2_0;  // module row select bit 0
@@ -26,7 +26,7 @@ struct dyad {
 
 // other definitions
 #define BRIGHT (0x555)
-#define DELAY  (100)
+#define DELAY  (25)
 
 // global variables
 uint8_t hcnt = 2;
@@ -57,8 +57,8 @@ void setup() {
   pinMode (hcnt_in, INPUT);
   pinMode (vcnt_in, INPUT);
   digitalWrite (latch, LOW);
-  digitalWrite (hcnt_out, HIGH);
-  digitalWrite (vcnt_out, HIGH);
+  digitalWrite (hcnt_out, LOW);
+  digitalWrite (vcnt_out, LOW);
   digitalWrite (clkadd0, LOW);
   digitalWrite (clkadd1, LOW);
   digitalWrite (clkadd2, LOW);
@@ -88,7 +88,7 @@ void loop() {
  }
  for (i = 0; i < 8; i++) {
    for (j = 0; j < DELAY; j++) {
-     //writeCol(i, BRIGHT, BRIGHT, BRIGHT);
+     writeCol(i, BRIGHT, BRIGHT, BRIGHT);
    }
  }
  for (i = 0; i < (8 * vcnt); i++) {
@@ -108,7 +108,7 @@ void loop() {
  }
  for (i = 0; i < (8 * vcnt); i++) {
    for (j = 0; j < DELAY; j++) {
-     //writeRow(i, BRIGHT, BRIGHT, BRIGHT);
+     writeRow(i, BRIGHT, BRIGHT, BRIGHT);
    }
  }
 }
@@ -157,7 +157,7 @@ void writeCol (int column, int red, int grn, int blu) {
 void writeRow (int row, int red, int grn, int blu) {
   int i, j, k, l;
   struct dyad mine;
-  //selectRow(0);
+  selectRow(0);
   for (i = 0; i < 8; i++) {
     selectCol(i);
     for (j = 0; j < vcnt; j++) {
@@ -231,21 +231,22 @@ uint16_t strobeLatch (void) {
 void selectCol (int col) {
   int i;
  i = col;
- if (i & 1) {
+ if (i & 0x01) {
       digitalWrite(col0, HIGH);
     } else {
       digitalWrite(col0, LOW);
     }
-    if (i & 2) {
+    if (i & 0x02) {
       digitalWrite(col1, HIGH);
     } else {
       digitalWrite(col1, LOW);
     }
-    if (i & 4) {
+    if (i & 0x04) {
       digitalWrite(col2, HIGH);
     } else {
       digitalWrite(col2, LOW);
     }
+    delay(1);
   
 }
 
@@ -260,7 +261,7 @@ void pushBytes (const uint8_t *bytes, uint8_t len, int rowBlock) {
 
 
 void selectRow (int rowBlock) {
-  //rowBlock = 0;
+ rowBlock = 0;
  if (rowBlock & 1) {
    digitalWrite(clkadd0, HIGH);
  } else {
