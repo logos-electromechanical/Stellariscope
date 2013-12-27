@@ -9721,10 +9721,10 @@ Source: RS Component / Phycomp</description>
 <attribute name="PARTNO" value="SN74LVC2G79DCTR"/>
 </part>
 <part name="U1" library="ti-stuff" deviceset="74*238" device="">
-<attribute name="PARTNO" value="SN74AHC138PWR"/>
+<attribute name="PARTNO" value="CD74HC238PWR"/>
 </part>
 <part name="U2" library="ti-stuff" deviceset="74*238" device="">
-<attribute name="PARTNO" value="SN74AHC138PWR"/>
+<attribute name="PARTNO" value="CD74HC238PWR"/>
 </part>
 <part name="U3" library="logos-led-drivers" deviceset="TLC5947" device="PWP">
 <attribute name="PARTNO" value="TLC5947DAP"/>
@@ -9849,15 +9849,18 @@ Source: RS Component / Phycomp</description>
 <part name="+3V12" library="supply1" deviceset="+3V3" device=""/>
 <part name="JP1" library="pinhead" deviceset="PINHD-1X3" device="">
 <attribute name="DNP" value="T"/>
+<attribute name="PARTNO" value="*"/>
 </part>
 <part name="P+2" library="supply1" deviceset="+5V" device=""/>
 <part name="GND19" library="supply1" deviceset="GND" device=""/>
-<part name="JP2" library="pinhead-1" deviceset="PINHD-1X2" device="_2.54-90°"/>
+<part name="JP2" library="pinhead-1" deviceset="PINHD-1X2" device="_2.54-90°">
+<attribute name="PARTNO" value="*"/>
+</part>
 <part name="C9" library="resistor" deviceset="C-US" device="C1210" value="10u">
 <attribute name="PARTNO" value="C3216X5R1E106M"/>
 </part>
 <part name="C10" library="resistor" deviceset="C-US" device="C1210" value="10u">
-<attribute name="PARTNO" value="C3216Y5V1A106Z/0.85"/>
+<attribute name="PARTNO" value="C3216X5R1E106M"/>
 </part>
 <part name="GND20" library="supply1" deviceset="GND" device=""/>
 <part name="R4" library="res-cap-arrays" deviceset="4R-N" device="CTS742C083" value="10K">
@@ -10186,10 +10189,13 @@ Source: RS Component / Phycomp</description>
 <instance part="+3V12" gate="G$1" x="279.4" y="109.22" rot="MR270"/>
 <instance part="JP1" gate="A" x="233.68" y="48.26" rot="R180">
 <attribute name="DNP" x="233.68" y="48.26" size="1.778" layer="96" rot="R180" display="off"/>
+<attribute name="PARTNO" x="233.68" y="48.26" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="P+2" gate="1" x="246.38" y="50.8" rot="R270"/>
 <instance part="GND19" gate="1" x="243.84" y="40.64"/>
-<instance part="JP2" gate="G$1" x="317.5" y="203.2" rot="R90"/>
+<instance part="JP2" gate="G$1" x="317.5" y="203.2" rot="R90">
+<attribute name="PARTNO" x="317.5" y="203.2" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="C9" gate="G$1" x="355.6" y="187.96">
 <attribute name="PARTNO" x="355.6" y="187.96" size="1.778" layer="96" display="off"/>
 </instance>

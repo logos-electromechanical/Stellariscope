@@ -2499,10 +2499,10 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="PARTNO" value="SN74LVC2G79DCTR" x="34.5" y="45" size="1.778" layer="27" display="off"/>
 </element>
 <element name="U1" library="ti-stuff" package="TSSOP16" value="74238" x="33" y="31.15" rot="R270">
-<attribute name="PARTNO" value="SN74AHC138PWR" x="33" y="31.15" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="PARTNO" value="CD74HC238PWR" x="33" y="31.15" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="U2" library="ti-stuff" package="TSSOP16" value="74238" x="19.5" y="18" rot="R270">
-<attribute name="PARTNO" value="SN74AHC138PWR" x="19.5" y="18" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="PARTNO" value="CD74HC238PWR" x="19.5" y="18" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="U3" library="logos-led-drivers" package="HTSSOP32-PWP" value="TLC5947PWP" x="17" y="30">
 <attribute name="PARTNO" value="TLC5947DAP" x="17" y="30" size="1.778" layer="27" display="off"/>
@@ -2594,13 +2594,16 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="JP1" library="pinhead" package="1X03" value="" x="49.25" y="3.54" rot="R270">
 <attribute name="DNP" value="T" x="49.25" y="3.54" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="PARTNO" value="*" x="49.25" y="3.54" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="JP2" library="pinhead-1" package="1X02/90" value="" x="38.25" y="59.5"/>
+<element name="JP2" library="pinhead-1" package="1X02/90" value="" x="38.25" y="59.5">
+<attribute name="PARTNO" value="*" x="38.25" y="59.5" size="1.778" layer="27" display="off"/>
+</element>
 <element name="C9" library="resistor" package="C1210" value="10u" x="33" y="53" rot="R270">
 <attribute name="PARTNO" value="C3216X5R1E106M" x="33" y="53" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="C10" library="resistor" package="C1210" value="10u" x="46.5" y="43" rot="R90">
-<attribute name="PARTNO" value="C3216Y5V1A106Z/0.85" x="46.5" y="43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="PARTNO" value="C3216X5R1E106M" x="46.5" y="43" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="R4" library="res-cap-arrays" package="CTS742C083-RES" value="10K" x="11.5" y="12.5" rot="R90">
 <attribute name="PARTNO" value="742C083103JPTR" x="11.5" y="12.5" size="1.778" layer="27" rot="R90" display="off"/>
